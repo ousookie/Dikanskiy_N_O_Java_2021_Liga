@@ -8,17 +8,13 @@ public class Main {
 
     public static int paddingCounter = 1;
 
+    final static String TEST_PATH =
+            "C:\\Users\\Nikolay\\IdeaProjects\\javabase_homework\\src\\main\\resources\\inner-to-test-recursion";
+
     public static void main(String... args) {
-        Path rightPath = Path.of(
-                "C:\\Users\\Nikolay\\IdeaProjects\\javabase_homework\\src\\main\\resources\\inner-to-test-recursion"
-        );
-//        Path wrongPath = Path.of("C:\\Users\\Nikolay\\Desktop\\wrongFolder");
+        Path path = Path.of(TEST_PATH);
         try {
-            System.out.println(tree(rightPath));
-//            rightPath = Path.of("C:\\Users\\Nikolay\\Desktop\\test");
-//            System.out.println(tree(rightPath));
-//            System.out.println(tree(wrongPath));
-//            System.out.println(tree(null));
+            System.out.println(tree(path));
         } catch (RuntimeException runtimeException) {
             System.out.println(runtimeException.getMessage());
         }

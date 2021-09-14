@@ -5,10 +5,6 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    // Почему при вызове executorService.shutdown(); программа продолжает свое исполнение ?
-    // Почему если убрать строчку 28 (executorService.shutdown()) программа не прекратит свое исполнение
-    // даже после завершения всех тасок в executorService ?
-    // Почему при работе тасок executorService в консоль в секунду попадает всего 4 сообщения, тогда как тасок в executorService - 16?
     public static void main(String[] args) {
         startSomeDaemon();
 
@@ -27,19 +23,11 @@ public class Main {
                 System.err.println(String.format("Hello from %d callable", captureId));
             });
         }
-//        executorService.shutdown();
+        executorService.shutdown();
     }
 
     private static int getThreadsCount() {
         return 16;
-//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-//            int num = Integer.valueOf(reader.readLine());
-//            return num;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return 0;
     }
 
     private static void startSomeDaemon() {

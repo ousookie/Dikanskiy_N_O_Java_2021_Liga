@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class Counter {
 
-    static int counter = 0;
+    static Integer counter = 0;
     public static final int N_THREADS = 4;
 
     /// Перепишите код так, чтобы операция увеличения счетчика была синхронизируемой
@@ -36,3 +36,5 @@ public class Counter {
     }
 
 }
+
+

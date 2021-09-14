@@ -14,8 +14,6 @@ public class DeadLock {
         this.name = name;
     }
 
-    // Поменяйте в строчках 22 getRunnable на getRunnableInterruptibility, запустите программу и дайте ей завершиться самой.
-    // Проанализируйте наблюдаемый результат для себя
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         DeadLock first = new DeadLock("first"),
