@@ -37,8 +37,8 @@ public class Main {
         final int nextMonthDayLim = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH) - 1);
         int prevMonthDayLim = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int[][] array = new int[6][7];
-        for (int i = 0; i < 6; i++) {
+        int[][] array = new int[5][7];
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
                 if (i == 0 && j < padding - 1) {
                     array[i][j] = prevMonthDayLim - padding + 2;
@@ -60,7 +60,7 @@ public class Main {
 
     private static void printCalendar(final int[][] array) {
         if (array == null) throw new RuntimeException();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
                 System.out.printf("%-6d", array[i][j]);
             }

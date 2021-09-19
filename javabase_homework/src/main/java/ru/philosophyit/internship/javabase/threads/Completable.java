@@ -5,6 +5,11 @@ import java.util.function.Function;
 
 public class Completable {
 
+    // Почему в выводе нет "Hello world"?
+
+    // * Hello world не выводился, так как при работе с CompletableFuture в конце неообходимо добавлять терминальную
+    // операцию (join()) *
+
     public static void main(String[] args) {
         CompletableFuture.supplyAsync(() -> {
                     try {

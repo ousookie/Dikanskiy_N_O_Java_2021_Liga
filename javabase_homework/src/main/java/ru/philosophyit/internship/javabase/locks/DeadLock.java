@@ -7,6 +7,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DeadLock {
 
+    // Поменяйте в строчках 22 getRunnable на getRunnableInterruptibility, запустите программу и дайте ей завершиться самой.
+    // Проанализируйте наблюдаемый результат для себя
+
+    // * Для того чтобы выйти из ситуации взаимной блокировки мы использовали прерывания *
+
     private final String name;
     private final ReentrantLock lock = new ReentrantLock();
 
