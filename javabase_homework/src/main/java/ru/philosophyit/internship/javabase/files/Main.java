@@ -2,6 +2,7 @@ package ru.philosophyit.internship.javabase.files;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Main {
@@ -9,10 +10,11 @@ public class Main {
     public static int paddingCounter = 1;
 
     public static void main(String... args) {
-        String path = Path.of("").toAbsolutePath().toString();
-        path += "\\src\\main\\resources\\inner-to-test-recursion";
+        File file = new File(Paths.get(
+                "src", "main", "java", "ru", "philosophyit", "internship", "javabase").toUri());
+        Path path = file.toPath();
         try {
-            System.out.println(tree(Path.of(path)));
+            System.out.println(tree(path));
         } catch (RuntimeException runtimeException) {
             System.out.println(runtimeException.getMessage());
         }
