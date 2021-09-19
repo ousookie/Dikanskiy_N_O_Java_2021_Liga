@@ -1,7 +1,6 @@
 package ru.philosophyit.internship.javabase.files;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -9,10 +8,11 @@ public class Main {
 
     public static int paddingCounter = 1;
 
-    public static void main(String... args) throws IOException {
-        Path path = Path.of("src\\main\\resources\\inner-to-test-recursion").toRealPath();
+    public static void main(String... args) {
+        String path = Path.of("").toAbsolutePath().toString();
+        path += "\\src\\main\\resources\\inner-to-test-recursion";
         try {
-            System.out.println(tree(path));
+            System.out.println(tree(Path.of(path)));
         } catch (RuntimeException runtimeException) {
             System.out.println(runtimeException.getMessage());
         }
