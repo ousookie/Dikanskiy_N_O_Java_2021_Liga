@@ -38,13 +38,13 @@ public class OrderTest {
 
     @Test
     public void checkoutTest() {
-        final int totalSum = 285;
+        final int totalPrice = 285;
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
         cart.addToCart(new ProductImpl("Milk", 129, "Some milk"));
         cart.addToCart(new ProductImpl("Cheese", 57, "Some cheese"));
         cart.addToCart(new ProductImpl("Milk", 99, "Some milk"));
-        Assert.assertEquals(totalSum, order.checkout(user));
+        Assert.assertEquals(totalPrice, order.checkout(user));
     }
 
 }
