@@ -49,7 +49,6 @@ public class Main {
                 user.getCart().addToCart(new ProductImpl("Провинция", 150, "Сосиски"));
             }
         }
-
     }
 
 }
