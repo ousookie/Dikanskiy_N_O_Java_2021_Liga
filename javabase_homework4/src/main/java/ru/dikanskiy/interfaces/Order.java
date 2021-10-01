@@ -1,4 +1,6 @@
-package ru.dikanskiy.entities.interfaces;
+package ru.dikanskiy.interfaces;
+
+import ru.dikanskiy.entities.implementations.user.User;
 
 public interface Order {
 

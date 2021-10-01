@@ -1,7 +1,7 @@
-package ru.dikanskiy.entities.implementations.cart;
+package ru.dikanskiy.services.implementations.cart;
 
-import ru.dikanskiy.entities.interfaces.Cart;
-import ru.dikanskiy.entities.interfaces.Product;
+import ru.dikanskiy.interfaces.Cart;
+import ru.dikanskiy.interfaces.Product;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package ru.dikanskiy.entities.implementations.order;
+package ru.dikanskiy.services.implementations.order;
 
-import ru.dikanskiy.entities.interfaces.Cart;
-import ru.dikanskiy.entities.interfaces.Order;
-import ru.dikanskiy.entities.interfaces.Product;
-import ru.dikanskiy.entities.interfaces.User;
+import ru.dikanskiy.entities.implementations.user.User;
+import ru.dikanskiy.interfaces.Cart;
+import ru.dikanskiy.interfaces.Order;
+import ru.dikanskiy.interfaces.Product;
 
 public class OrderImpl implements Order {
 

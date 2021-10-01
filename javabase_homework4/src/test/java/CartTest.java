@@ -3,11 +3,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import ru.dikanskiy.entities.implementations.cart.CartImpl;
-import ru.dikanskiy.entities.implementations.product.Cheese;
-import ru.dikanskiy.entities.implementations.product.Milk;
-import ru.dikanskiy.entities.implementations.user.Guest;
-import ru.dikanskiy.entities.interfaces.Product;
+import ru.dikanskiy.entities.implementations.product.ProductImpl;
+import ru.dikanskiy.entities.implementations.user.User;
+import ru.dikanskiy.services.implementations.cart.CartImpl;
+import ru.dikanskiy.interfaces.Product;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,13 +19,13 @@ public class CartTest {
     CartImpl cart;
 
     @InjectMocks
-    Guest user;
+    User user;
 
     @Test
     public void addToCartTest() {
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
-        final Product milkProduct = new Milk("Milk", 135, "Some milk");
+        final Product milkProduct = new ProductImpl("Milk", 135, "Some milk");
         cart.addToCart(milkProduct);
         Assert.assertEquals(cart.getProduct(0), milkProduct);
     }
@@ -35,7 +34,7 @@ public class CartTest {
     public void getProductTest() {
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
-        final Product milkProduct = new Milk("Milk", 155, "Some milk");
+        final Product milkProduct = new ProductImpl("Milk", 155, "Some milk");
         cart.addToCart(milkProduct);
         Assert.assertEquals(cart.getProduct(0), milkProduct);
     }
@@ -44,12 +43,10 @@ public class CartTest {
     public void removeProductTest() {
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
-        final Product milkProduct = new Milk("Milk", 145, "Some milk");
+        final Product milkProduct = new ProductImpl("Milk", 145, "Some milk");
         cart.addToCart(milkProduct);
         cart.removeProduct(0);
-        Assert.assertThrows(IndexOutOfBoundsException.class, () -> {
-            cart.getProduct(0);
-        });
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> cart.getProduct(0));
     }
 
     @Test
@@ -65,7 +62,7 @@ public class CartTest {
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
         for (int i = 0; i < 10; i++) {
-            cart.addToCart(new Cheese("Cheese", i * i, "Some cheese"));
+            cart.addToCart(new ProductImpl("Cheese", i * i, "Some cheese"));
         }
         cart.clearCart();
         Assert.assertTrue(user.getCart().isEmpty());
@@ -75,8 +72,8 @@ public class CartTest {
     public void setProductTest() {
         user.setCart(cart);
         user.getCart().setCartList(new LinkedList<>());
-        cart.addToCart(new Cheese("Cheese", 199, "Some cheese"));
-        final Product milkProduct = new Milk("Milk", 155, "Some milk");
+        cart.addToCart(new ProductImpl("Cheese", 199, "Some cheese"));
+        final Product milkProduct = new ProductImpl("Milk", 155, "Some milk");
         cart.setProduct(0, milkProduct);
         Assert.assertEquals(cart.getProduct(0), milkProduct);
     }
@@ -84,7 +81,7 @@ public class CartTest {
     @Test
     public void getProductsTest() {
         List<Product> products = new LinkedList<>();
-        products.add(new Cheese("Cheese", 199, "Some cheese"));
+        products.add(new ProductImpl("Cheese", 199, "Some cheese"));
         user.setCart(cart);
         user.getCart().setCartList(products);
         Assert.assertEquals(products, user.getCart().getProducts());

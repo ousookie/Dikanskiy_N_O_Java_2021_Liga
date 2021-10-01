@@ -1,21 +1,20 @@
-package ru.dikanskiy.entities.implementations.base;
+package ru.dikanskiy.entities.implementations.user;
 
-import ru.dikanskiy.entities.interfaces.Cart;
-import ru.dikanskiy.entities.interfaces.User;
+import ru.dikanskiy.interfaces.Cart;
 
-abstract public class BaseUser implements User {
+public class User {
 
-    protected long id;
-    protected String name;
-    protected String password;
-    protected String role;
-    protected Cart cart;
+    private long id;
+    private String name;
+    private String password;
+    private String role;
+    private Cart cart;
 
-    public BaseUser() {
+    public User() {
 
     }
 
-    public BaseUser(long id, String name, String password, Cart cart) {
+    public User(long id, String name, String password, Cart cart) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -34,30 +33,26 @@ abstract public class BaseUser implements User {
         this.password = password;
     }
 
-    public abstract void setRole(String role);
+    public void setRole(String role) {
 
-    @Override
+    }
+
     public long getId() {
         return id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
 
-    @Override
+
     public String getRole() {
         return role;
     }
-
-    @Override
-    public abstract String toString();
 
     public Cart getCart() {
         return cart;
@@ -69,6 +64,17 @@ abstract public class BaseUser implements User {
 
     public void showCart() {
         System.out.println(cart);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", cart=" + cart +
+                '}';
     }
 
 }

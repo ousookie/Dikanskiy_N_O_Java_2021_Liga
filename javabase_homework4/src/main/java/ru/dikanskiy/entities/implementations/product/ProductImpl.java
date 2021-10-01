@@ -1,22 +1,22 @@
-package ru.dikanskiy.entities.implementations.base;
+package ru.dikanskiy.entities.implementations.product;
 
-import ru.dikanskiy.entities.interfaces.Product;
+import ru.dikanskiy.interfaces.Product;
 
 import java.util.Objects;
 
-abstract public class BaseProduct implements Product {
+public class ProductImpl implements Product {
 
-    protected long id;
-    protected static long currentId = initId;
-    protected String name;
-    protected long price;
-    protected String description;
+    private long id;
+    private static long currentId = initId;
+    private String name;
+    private long price;
+    private String description;
 
-    public BaseProduct() {
+    public ProductImpl() {
 
     }
 
-    public BaseProduct(String name, long price, String description) {
+    public ProductImpl(String name, long price, String description) {
         currentId++;
         this.id = currentId;
         this.name = name;
@@ -28,7 +28,7 @@ abstract public class BaseProduct implements Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaseProduct that = (BaseProduct) o;
+        ProductImpl that = (ProductImpl) o;
         return id == that.id && price == that.price && Objects.equals(name, that.name) && Objects.equals(description, that.description);
     }
 
@@ -74,6 +74,14 @@ abstract public class BaseProduct implements Product {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "ProductImpl{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
+    }
 
 }
+

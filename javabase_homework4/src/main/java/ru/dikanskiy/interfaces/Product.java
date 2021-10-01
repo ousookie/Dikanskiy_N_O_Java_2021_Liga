@@ -1,4 +1,4 @@
-package ru.dikanskiy.entities.interfaces;
+package ru.dikanskiy.interfaces;
 
 public interface Product {
 
