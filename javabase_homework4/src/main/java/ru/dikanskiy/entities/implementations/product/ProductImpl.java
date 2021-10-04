@@ -26,8 +26,12 @@ public class ProductImpl implements Product {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ProductImpl that = (ProductImpl) o;
         return id == that.id && price == that.price && Objects.equals(name, that.name) && Objects.equals(description, that.description);
     }
