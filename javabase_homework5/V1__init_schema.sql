@@ -29,13 +29,6 @@ create table student_subjects
     primary key (student_id, subject_id)
 );
 
-create table subject_students
-(
-    subject_id bigint references subject,
-    student_id bigint references student,
-    primary key (subject_id, student_id)
-);
-
 create table teacher
 (
     id        bigint primary key,
@@ -52,26 +45,6 @@ create table teacher_subjects
     primary key (teacher_id, subject_id)
 );
 
-create table subject_teachers
-(
-    subject_id bigint references subject,
-    teacher_id bigint references student,
-    primary key (subject_id, teacher_id)
-);
-
-create table school_teachers
-(
-    school_id  bigint references school,
-    teacher_id bigint references teacher,
-    primary key (school_id, teacher_id)
-);
-
-create table school_students
-(
-    school_id  bigint references school,
-    student_id bigint references student,
-    primary key (school_id, student_id)
-);
 
 
 
