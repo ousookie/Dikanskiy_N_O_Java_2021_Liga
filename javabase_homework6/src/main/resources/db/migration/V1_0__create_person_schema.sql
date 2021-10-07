@@ -4,7 +4,3 @@ CREATE TABLE IF NOT EXISTS person
     name  VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL
 );
-
-
-
-
