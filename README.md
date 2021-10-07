@@ -3,3 +3,5 @@
 ### Commands:
 > * docker pull postgres:alpine
 > * docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:alpine
+> * docker exec -it postgres bash
+> * psql --help
