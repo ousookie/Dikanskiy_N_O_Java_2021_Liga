@@ -45,7 +45,3 @@ create table teacher_subjects
     primary key (teacher_id, subject_id)
 );
 
-
-
-
-
