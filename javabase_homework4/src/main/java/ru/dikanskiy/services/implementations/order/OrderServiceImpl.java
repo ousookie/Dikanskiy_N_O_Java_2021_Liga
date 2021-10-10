@@ -1,17 +1,17 @@
 package ru.dikanskiy.services.implementations.order;
 
+import ru.dikanskiy.entities.implementations.product.Product;
 import ru.dikanskiy.entities.implementations.user.User;
-import ru.dikanskiy.interfaces.Cart;
-import ru.dikanskiy.interfaces.Order;
-import ru.dikanskiy.interfaces.Product;
+import ru.dikanskiy.interfaces.CartService;
+import ru.dikanskiy.interfaces.OrderService;
 
-public class OrderImpl implements Order {
+public class OrderServiceImpl implements OrderService {
 
     @Override
     public String displayProducts(User user) {
         StringBuilder stringBuilder = new StringBuilder();
-        Cart cart = user.getCart();
-        for (Product product : cart.getProducts()) {
+        CartService cartService = user.getCart();
+        for (Product product : cartService.getProducts()) {
             stringBuilder.append(product);
             stringBuilder.append("\n");
         }

@@ -1,8 +1,10 @@
 package ru.dikanskiy.interfaces;
 
+import ru.dikanskiy.entities.implementations.product.Product;
+
 import java.util.List;
 
-public interface Cart {
+public interface CartService {
 
     void setCartList(List<Product> products);
 

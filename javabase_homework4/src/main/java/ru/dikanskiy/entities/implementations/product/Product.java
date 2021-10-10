@@ -1,22 +1,20 @@
 package ru.dikanskiy.entities.implementations.product;
 
-import ru.dikanskiy.interfaces.Product;
-
 import java.util.Objects;
 
-public class ProductImpl implements Product {
+public class Product {
 
     private long id;
-    private static long currentId = initId;
+    private static long currentId = 0;
     private String name;
     private long price;
     private String description;
 
-    public ProductImpl() {
+    public Product() {
 
     }
 
-    public ProductImpl(String name, long price, String description) {
+    public Product(String name, long price, String description) {
         currentId++;
         this.id = currentId;
         this.name = name;
@@ -32,7 +30,7 @@ public class ProductImpl implements Product {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ProductImpl that = (ProductImpl) o;
+        Product that = (Product) o;
         return id == that.id && price == that.price && Objects.equals(name, that.name) && Objects.equals(description, that.description);
     }
 
@@ -57,22 +55,20 @@ public class ProductImpl implements Product {
         this.description = description;
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public long getPrice() {
         return price;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }

@@ -1,6 +1,6 @@
 package ru.dikanskiy.entities.implementations.user;
 
-import ru.dikanskiy.interfaces.Cart;
+import ru.dikanskiy.interfaces.CartService;
 
 public class User {
 
@@ -8,17 +8,17 @@ public class User {
     private String name;
     private String password;
     private String role;
-    private Cart cart;
+    private CartService cartService;
 
     public User() {
 
     }
 
-    public User(long id, String name, String password, Cart cart) {
+    public User(long id, String name, String password, CartService cartService) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.cart = cart;
+        this.cartService = cartService;
     }
 
     public void setId(long id) {
@@ -54,16 +54,16 @@ public class User {
         return role;
     }
 
-    public Cart getCart() {
-        return cart;
+    public CartService getCart() {
+        return cartService;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCart(CartService cartService) {
+        this.cartService = cartService;
     }
 
     public void showCart() {
-        System.out.println(cart);
+        System.out.println(cartService);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", cart=" + cart +
+                ", cart=" + cartService +
                 '}';
     }
 

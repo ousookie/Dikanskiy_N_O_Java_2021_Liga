@@ -1,8 +1,8 @@
 import ru.dikanskiy.entities.implementations.user.User;
-import ru.dikanskiy.services.implementations.cart.CartImpl;
-import ru.dikanskiy.services.implementations.order.OrderImpl;
-import ru.dikanskiy.entities.implementations.product.ProductImpl;
-import ru.dikanskiy.interfaces.Order;
+import ru.dikanskiy.services.implementations.cart.CartServiceImpl;
+import ru.dikanskiy.services.implementations.order.OrderServiceImpl;
+import ru.dikanskiy.entities.implementations.product.Product;
+import ru.dikanskiy.interfaces.OrderService;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
 
-    static Order order = new OrderImpl();
+    static OrderService orderService = new OrderServiceImpl();
 
     public static void main(String[] args) {
         List<User> users = users();
@@ -18,9 +18,9 @@ public class Main {
         fillUserCarts(users);
         for (User user : users) {
             System.out.println(user);
-            System.out.println(order.displayProducts(user));
+            System.out.println(orderService.displayProducts(user));
             System.out.println("--------------------------------------------------------------------");
-            System.out.println("Total: " + order.checkout(user) + "\n");
+            System.out.println("Total: " + orderService.checkout(user) + "\n");
         }
 
     }
@@ -28,7 +28,7 @@ public class Main {
     private static List<User> users() {
         List<User> users = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            users.add(new User(i, User.class.toString(), "12345", new CartImpl()));
+            users.add(new User(i, User.class.toString(), "12345", new CartServiceImpl()));
         }
         return users;
     }
@@ -42,11 +42,11 @@ public class Main {
     private static void fillUserCarts(List<User> users) {
         for (User user : users) {
             if (user.getId() % 2 == 0) {
-                user.getCart().addToCart(new ProductImpl("Бурёнка", 75, "Молоко"));
-                user.getCart().addToCart(new ProductImpl("Докторская", 180, "Колбаса"));
+                user.getCart().addToCart(new Product("Бурёнка", 90, "Молоко"));
+                user.getCart().addToCart(new Product("Докторская", 180, "Колбаса"));
             } else {
-                user.getCart().addToCart(new ProductImpl("Брест-Литовск", 100, "Сыр"));
-                user.getCart().addToCart(new ProductImpl("Провинция", 150, "Сосиски"));
+                user.getCart().addToCart(new Product("Брест-Литовск", 100, "Сыр"));
+                user.getCart().addToCart(new Product("Провинция", 150, "Сосиски"));
             }
         }
     }

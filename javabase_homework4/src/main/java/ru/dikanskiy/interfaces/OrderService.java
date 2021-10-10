@@ -2,7 +2,7 @@ package ru.dikanskiy.interfaces;
 
 import ru.dikanskiy.entities.implementations.user.User;
 
-public interface Order {
+public interface OrderService {
 
     String displayProducts(User user);
 

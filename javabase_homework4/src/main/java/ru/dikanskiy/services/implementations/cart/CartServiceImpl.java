@@ -1,11 +1,11 @@
 package ru.dikanskiy.services.implementations.cart;
 
-import ru.dikanskiy.interfaces.Cart;
-import ru.dikanskiy.interfaces.Product;
+import ru.dikanskiy.entities.implementations.product.Product;
+import ru.dikanskiy.interfaces.CartService;
 
 import java.util.List;
 
-public class CartImpl implements Cart {
+public class CartServiceImpl implements CartService {
 
     List<Product> products;
 
