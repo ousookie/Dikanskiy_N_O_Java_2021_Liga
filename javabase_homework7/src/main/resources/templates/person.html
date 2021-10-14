@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        Id: <span th:text="${person.get().getId()}"></span>
+    </div>
+    <div>
+        Name: <span th:text="${person.get().getName()}"></span>
+    </div>
+    <div>
+        Email: <span th:text="${person.get().getEmail()}"></span>
+    </div>
+    <div>
+        School: <span th:if="${person.get().getSchool() != null}"
+                      th:text="${person.get().getSchool().getName()}"></span>
+    </div>
+    <div>
+        Friends:
+        <div th:each="friend : ${person.get().getFriend()}">
+            • <span th:text="${friend.getName()}"></span>
+        </div>
+    </div>
+    <br>
+    <a th:href="@{'/people/' + ${person.get().getId()} + '/edit'}">Edit</a>
+    <div class="mainDiv">
+        <form th:method="DELETE" th:action="@{'/people/' + ${person.get().getId()} + '/delete'}">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

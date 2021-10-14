@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Content</th>
+                <th>Author</th>
+            </tr>
+            <tr th:each="post: ${posts}">
+                <td>
+                    <a th:href="@{'/posts/' + ${post.id}}">
+                        <span th:text="${post.id}">
+                        </span>
+                    </a>
+                </td>
+                <td th:text="${post.name}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.getPerson().getName()}"></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a th:href="@{/posts/new}">Create new post</a>
+    </div>
+</div>
+</body>
+</html>

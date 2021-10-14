@@ -1,0 +1,39 @@
+.mainDiv {
+    font-family: 'Roboto', sans-serif;
+    font-size: 4ch;
+}
+
+.table {
+    background-color: aliceblue;
+    text-align: center;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table tr {
+    border: 1px solid #dddddd;
+}
+
+.table td {
+
+    padding: 15px 0 15px;
+}
+
+.table tr:first-child {
+    background-color: #e7ecff;
+}
+
+input[type="submit"] {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20pt;
+}
+
+input[type="text"] {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20pt;
+}
+
+.errorDiv {
+    color: firebrick;
+}

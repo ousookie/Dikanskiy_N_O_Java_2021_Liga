@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>School</th>
+            </tr>
+            <tr th:each="person: ${people}">
+                <td>
+                    <a th:href="@{'/people/' + ${person.id}}">
+                        <span th:text="${person.id}">
+                        </span>
+                    </a>
+                </td>
+                <td th:text="${person.name}"></td>
+                <td th:text="${person.email}"></td>
+                <td th:if="${person.getSchool() != null}"
+                    th:text="${person.getSchool().name}"></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a th:href="@{/people/new}">Create new person</a>
+    </div>
+</div>
+</body>
+</html>

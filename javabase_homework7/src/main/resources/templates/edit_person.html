@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit person</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <form th:action="@{'/people/' + ${id} + '/edit'}" th:method="PATCH" th:object="${person}">
+            <div class="errorDiv" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="name" th:field="*{name}"
+                           th:value="*{name}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="email" th:field="*{email}"
+                           th:value="*{email}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('school')}" th:errors="*{school}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="school" th:field="*{school}"
+                           th:value="*{school}">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="text" placeholder="friends" th:field="*{friend}"
+                           th:value="*{friend}">
+                </label>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a th:href="@{/people}">Home</a>
+    </div>
+</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schools</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+            </tr>
+            <tr th:each="school: ${schools}">
+                <td>
+                    <a th:href="@{'/schools/' + ${school.id}}">
+                        <span th:text="${school.id}">
+                        </span>
+                    </a>
+                </td>
+                <td th:text="${school.name}"></td>
+                <td th:text="${school.address}"></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a th:href="@{/schools/new}">Create new school</a>
+    </div>
+</div>
+</body>
+</html>

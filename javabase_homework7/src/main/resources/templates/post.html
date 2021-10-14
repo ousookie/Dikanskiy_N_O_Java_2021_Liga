@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        Id: <span th:text="${post.get().getId()}"></span>
+    </div>
+    <div>
+        Name: <span th:text="${post.get().getName()}"></span>
+    </div>
+    <div>
+        Content: <span th:text="${post.get().getContent()}"></span>
+    </div>
+    <div>
+        Author: <span th:text="${post.get().getPerson().getName()}"></span>
+    </div>
+    <br>
+    <a th:href="@{'/posts/' + ${post.get().getId()} + '/edit'}">Edit</a>
+    <div class="mainDiv">
+        <form th:method="DELETE" th:action="@{'/posts/' + ${post.get().getId()} + '/delete'}">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

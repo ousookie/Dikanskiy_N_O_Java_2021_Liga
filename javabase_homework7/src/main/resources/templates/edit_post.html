@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit post</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <form th:action="@{'/posts/' + ${id} + '/edit'}" th:method="PATCH" th:object="${post}">
+            <div class="errorDiv" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="name" th:field="*{name}"
+                           th:value="*{name}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="email" th:field="*{content}"
+                           th:value="*{content}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('person')}" th:errors="*{person}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="person" th:field="*{person}"
+                           th:value="*{person}">
+                </label>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a th:href="@{/posts}">Home</a>
+    </div>
+</div>
+</body>
+</html>
+
+
+

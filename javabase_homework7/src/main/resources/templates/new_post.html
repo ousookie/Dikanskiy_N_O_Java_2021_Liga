@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New post</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <form th:action="@{/posts/new}" th:method="POST" th:object="${post}">
+            <div class="errorDiv" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="name" th:field="*{name}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="content" th:field="*{content}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('person')}" th:errors="*{person}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="person_id" th:field="*{person}">
+                </label>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Create">
+            </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a th:href="@{/posts}">Home</a>
+    </div>
+</div>
+</body>
+</html>
+

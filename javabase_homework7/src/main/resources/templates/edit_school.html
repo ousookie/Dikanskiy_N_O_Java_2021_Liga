@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit school</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="mainDiv">
+    <div>
+        <form th:action="@{'/schools/' + ${id} + '/edit'}" th:method="PATCH" th:object="${school}">
+            <div class="errorDiv" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="name" th:field="*{name}"
+                           th:value="*{name}">
+                </label>
+            </div>
+            <div class="errorDiv" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+            <div>
+                <label>
+                    <input type="text" placeholder="address" th:field="*{address}"
+                           th:value="*{address}">
+                </label>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a th:href="@{/schools}">Home</a>
+    </div>
+</div>
+</body>
+</html>
+
+
+
