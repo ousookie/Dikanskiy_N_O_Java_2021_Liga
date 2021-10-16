@@ -1,8 +1,8 @@
-package com.example.liquibasedemo.services;
+package com.example.liquibasedemo.service;
 
 import com.example.liquibasedemo.dto.CustomerDTO;
 import com.example.liquibasedemo.entity.Customer;
-import com.example.liquibasedemo.exceptions.UserNotFoundException;
+import com.example.liquibasedemo.exception.UserNotFoundException;
 import com.example.liquibasedemo.mapper.CustomerMapper;
 import com.example.liquibasedemo.persistence.CustomerRepository;
 import lombok.RequiredArgsConstructor;

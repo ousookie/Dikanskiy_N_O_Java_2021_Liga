@@ -1,4 +1,4 @@
-package com.example.liquibasedemo.exceptions;
+package com.example.liquibasedemo.exception;
 
 public class UserNotFoundException extends RuntimeException {
 }

@@ -2,9 +2,8 @@ package com.example.liquibasedemo.controller;
 
 import com.example.liquibasedemo.dto.CustomerDTO;
 import com.example.liquibasedemo.entity.Customer;
-import com.example.liquibasedemo.exceptions.UserNotFoundException;
-import com.example.liquibasedemo.mapper.CustomerMapper;
-import com.example.liquibasedemo.services.CustomerService;
+import com.example.liquibasedemo.exception.UserNotFoundException;
+import com.example.liquibasedemo.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
