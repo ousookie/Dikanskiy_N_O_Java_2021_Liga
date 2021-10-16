@@ -5,20 +5,20 @@ import com.example.liquibasedemo.entity.Customer;
 import com.example.liquibasedemo.exceptions.UserNotFoundException;
 import com.example.liquibasedemo.mapper.CustomerMapper;
 import com.example.liquibasedemo.persistence.CustomerRepository;
-import liquibase.pro.packaged.C;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
+    private CustomerRepository customerRepository;
+    private CustomerMapper customerMapper;
 
     @Autowired
     public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
@@ -43,14 +43,18 @@ public class CustomerService {
             customer = customerRepository
                     .findById(UUID.fromString(id))
                     .get();
-        } else throw new UserNotFoundException();
+        } else {
+            throw new UserNotFoundException();
+        }
         return customerMapper.toCustomerDto(customer);
     }
 
     public void deleteCustomerById(String id) {
         if (customerRepository.existsById(UUID.fromString(id))) {
             customerRepository.deleteById(UUID.fromString(id));
-        } else throw new UserNotFoundException();
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
     public Customer updateCustomer(String id, Customer customer) {
@@ -60,7 +64,9 @@ public class CustomerService {
             currentCustomer.setId(customer.getId());
             currentCustomer.setName(customer.getName());
             currentCustomer.setRating(customer.getRating());
-        } else throw new UserNotFoundException();
+        } else {
+            throw new UserNotFoundException();
+        }
         return saveCustomer(currentCustomer);
     }
 
