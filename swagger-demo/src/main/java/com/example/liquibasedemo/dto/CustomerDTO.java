@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @ApiModel(description = "CustomerDTO entity")
-public class CustomerDto {
+public class CustomerDTO {
 
     private UUID id;
 

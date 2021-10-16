@@ -1,14 +1,19 @@
 package com.example.liquibasedemo.controller;
 
-import com.example.liquibasedemo.dto.CustomerDto;
+import com.example.liquibasedemo.dto.CustomerDTO;
 import com.example.liquibasedemo.entity.Customer;
+import com.example.liquibasedemo.exceptions.UserNotFoundException;
+import com.example.liquibasedemo.mapper.CustomerMapper;
 import com.example.liquibasedemo.services.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -26,7 +31,7 @@ public class CustomerController {
 
     @ApiOperation(value = "Enumerates all CustomerDTO entities")
     @GetMapping
-    public List<CustomerDto> enumerate() {
+    public List<CustomerDTO> enumerate() {
         return customerService.enumerateCustomers();
     }
 
@@ -38,20 +43,32 @@ public class CustomerController {
 
     @ApiOperation(value = "Retrieves CustomerDTO entity by it ID")
     @GetMapping("/{id}")
-    public CustomerDto get(@PathVariable("id") String id) {
-        return customerService.getCustomerById(id);
+    public CustomerDTO get(@PathVariable("id") String id) {
+        try {
+            return customerService.getCustomerById(id);
+        } catch (UserNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", exception);
+        }
     }
 
     @ApiOperation(value = "Update Customer entity by it ID")
     @PutMapping("/edit/{id}")
     public Customer update(@PathVariable("id") String id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(id, customer);
+        try {
+            return customerService.updateCustomer(id, customer);
+        } catch (UserNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", exception);
+        }
     }
 
     @ApiOperation(value = "Delete Customer entity by it ID")
     @DeleteMapping("/delete/{id}")
-    public void delete(String id) {
-        customerService.deleteCustomerById(id);
+    public void delete(@PathVariable(name = "id") String id) {
+        try {
+            customerService.deleteCustomerById(id);
+        } catch (UserNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", exception);
+        }
     }
 
 }
