@@ -13,8 +13,6 @@ CREATE TABLE IF NOT EXISTS person
     school_id BIGINT       REFERENCES school ON DELETE SET NULL
 );
 
-
-
 CREATE TABLE IF NOT EXISTS post
 (
     id        BIGINT       NOT NULL PRIMARY KEY,
@@ -26,7 +24,7 @@ CREATE TABLE IF NOT EXISTS post
 CREATE TABLE IF NOT EXISTS person_friend
 (
     person_id BIGINT REFERENCES person ON DELETE CASCADE,
-    friend_id BIGINT REFERENCES person,
+    friend_id BIGINT REFERENCES person ON DELETE SET NULL,
     PRIMARY KEY (person_id, friend_id)
 );
 
