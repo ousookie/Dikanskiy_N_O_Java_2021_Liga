@@ -54,5 +54,4 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
     }
 
-    //TODO: добавить и проаннотировать операции удаления сущности Customer, и создания новой пустой сущности Customer
 }
