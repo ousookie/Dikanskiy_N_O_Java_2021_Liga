@@ -10,6 +10,7 @@ import ru.dikanskiy.mapping.repositories.SchoolRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class SchoolService {
 
@@ -20,12 +21,10 @@ public class SchoolService {
         this.schoolRepository = schoolRepository;
     }
 
-    @Transactional(readOnly = true)
     public void findAllView(Model model) {
         model.addAttribute("schools", findAll());
     }
 
-    @Transactional(readOnly = true)
     public void findSchoolByIdView(Long id, Model model) {
         model.addAttribute("school", findSchoolById(id));
     }
@@ -35,7 +34,6 @@ public class SchoolService {
         schoolRepository.save(school);
     }
 
-    @Transactional(readOnly = true)
     public void patchSchoolByIdView(Long id, Model model) {
 
         School currentSchool = null;
@@ -52,12 +50,10 @@ public class SchoolService {
         schoolRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     Optional<School> findSchoolById(Long id) {
         return schoolRepository.findById(id);
     }
 
-    @Transactional(readOnly = true)
     List<School> findAll() {
         return schoolRepository.findAll();
     }

@@ -10,6 +10,7 @@ import ru.dikanskiy.mapping.repositories.PostRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class PostService {
 
@@ -20,12 +21,10 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    @Transactional(readOnly = true)
     public void findAllView(Model model) {
         model.addAttribute("posts", findAll());
     }
 
-    @Transactional(readOnly = true)
     public void findPostByIdView(Long id, Model model) {
         model.addAttribute("post", findPostById(id));
     }
@@ -35,7 +34,6 @@ public class PostService {
         postRepository.save(post);
     }
 
-    @Transactional(readOnly = true)
     public void patchPostByIdView(Long id, Model model) {
 
         Post currentPost = null;
@@ -52,12 +50,10 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     List<Post> findAll() {
         return postRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     Optional<Post> findPostById(Long id) {
         return postRepository.findById(id);
     }

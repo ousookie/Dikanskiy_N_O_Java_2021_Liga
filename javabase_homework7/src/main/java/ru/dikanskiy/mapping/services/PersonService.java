@@ -10,6 +10,7 @@ import ru.dikanskiy.mapping.repositories.PersonRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class PersonService {
 
@@ -20,12 +21,10 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    @Transactional(readOnly = true)
     public void findAllView(Model model) {
         model.addAttribute("people", findAll());
     }
 
-    @Transactional(readOnly = true)
     public void findPersonByIdView(Long id, Model model) {
         model.addAttribute("person", findPersonById(id));
     }
@@ -35,7 +34,6 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    @Transactional(readOnly = true)
     public void patchPersonByIdView(Long id, Model model) {
 
         Person currentPerson = null;
@@ -52,12 +50,10 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     List<Person> findAll() {
         return personRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     Optional<Person> findPersonById(Long id) {
         return personRepository.findById(id);
     }
