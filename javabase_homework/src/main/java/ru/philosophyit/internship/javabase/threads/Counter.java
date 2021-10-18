@@ -9,6 +9,7 @@ public class Counter {
 
     static Integer counter = 0;
     public static final int N_THREADS = 4;
+    private static Object lockObject = new Object();
 
     /// Перепишите код так, чтобы операция увеличения счетчика была синхронизируемой
     public static void main(String[] args) {
@@ -30,7 +31,9 @@ public class Counter {
     static CompletableFuture<Void> runCounting(ExecutorService executorService) {
         return CompletableFuture.runAsync(() -> {
             for (int i = 0; i < 1000000; i++) {
-                Counter.counter = Counter.counter + 1;
+                synchronized (lockObject) {
+                    Counter.counter = Counter.counter + 1;
+                }
             }
         }, executorService);
     }
