@@ -1,57 +1,63 @@
 package ru.dikanskiy.exam.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.dikanskiy.exam.persistance.entities.Person;
+import ru.dikanskiy.exam.core.Schedule;
+import ru.dikanskiy.exam.core.entities.TimeSlot;
+import ru.dikanskiy.exam.dto.PersonDTO;
+import ru.dikanskiy.exam.dto.ReservationDTO;
 import ru.dikanskiy.exam.persistance.entities.Reservation;
-import ru.dikanskiy.exam.services.PersonService;
-import ru.dikanskiy.exam.services.ReservationService;
+import ru.dikanskiy.exam.services.implementations.PersonServiceImplementation;
+import ru.dikanskiy.exam.services.implementations.ReservationServiceImplementation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/admin/management/api/v1/")
+@RequiredArgsConstructor
 public class ManagementController {
 
-    private final PersonService personService;
+    private final Schedule schedule;
 
-    private final ReservationService reservationService;
+    private final PersonServiceImplementation personServiceImplementation;
 
-    @Autowired
-    public ManagementController(PersonService personService, ReservationService reservationService) {
-        this.personService = personService;
-        this.reservationService = reservationService;
-    }
+    private final ReservationServiceImplementation reservationServiceImplementation;
 
     @GetMapping("/persons")
-    public List<Person> personList() {
-        return personService.findAll();
+    public List<PersonDTO> personList() {
+        return personServiceImplementation.findAll();
     }
 
     @GetMapping("/reservations")
-    public List<Reservation> reservationList() {
-        return reservationService.findAll();
+    public List<ReservationDTO> reservationList() {
+        return reservationServiceImplementation.findAll();
+    }
+
+    @GetMapping("/reservations/schedule")
+    public List<TimeSlot> schedule() {
+        return schedule.getReservationTestList();
     }
 
     @GetMapping("/reservations/actual")
-    public Optional<Reservation> reservationListSortedByDateASC() {
-        return reservationService.findReservationOrderByDateASC();
+    public Optional<ReservationDTO> reservationListSortedByDateASC() {
+        return reservationServiceImplementation.findReservationOrderByDateASC();
     }
 
     @PutMapping("/reservations/register/{id}")
     public Reservation registerReservation(@PathVariable(name = "id") String id) {
-        return reservationService.register(id);
+        return reservationServiceImplementation.register(UUID.fromString(id));
     }
 
     @PutMapping("/reservations/reset/{id}")
     public Reservation resetReservation(@PathVariable(name = "id") String id) {
-        return reservationService.reset(id);
+        return reservationServiceImplementation.reset(UUID.fromString(id));
     }
 
     @PostMapping("/reservations/add")
     public Reservation createReservation(@RequestBody Reservation reservation) {
-        return reservationService.save(reservation);
+        return reservationServiceImplementation.save(reservation);
     }
 
 }

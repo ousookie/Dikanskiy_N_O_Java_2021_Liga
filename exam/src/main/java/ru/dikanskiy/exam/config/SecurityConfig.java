@@ -1,6 +1,6 @@
 package ru.dikanskiy.exam.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,6 +18,7 @@ import ru.dikanskiy.exam.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -26,16 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtProviderService jwtProviderService;
 
-    @Autowired
-    public SecurityConfig(PasswordEncoder passwordEncoder, JwtProviderService jwtProviderService,
-                          PersonDetailsService personDetailsService) {
-        this.passwordEncoder = passwordEncoder;
-        this.jwtProviderService = jwtProviderService;
-        this.personDetailsService = personDetailsService;
-    }
+    private final JwtTokenValidationFilter jwtTokenValidationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        jwtTokenValidationFilter.setJwtProviderService(jwtProviderService);
         http
                 .csrf().disable()
                 .anonymous().disable()
@@ -48,9 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProviderService))
-                .addFilterAfter(new JwtTokenValidationFilter(jwtProviderService),
-                        JwtUsernameAndPasswordAuthenticationFilter.class);
-
+                .addFilterAfter(jwtTokenValidationFilter, JwtUsernameAndPasswordAuthenticationFilter.class);
     }
 
     @Override

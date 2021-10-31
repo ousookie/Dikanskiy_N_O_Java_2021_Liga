@@ -1,9 +1,6 @@
 package ru.dikanskiy.exam.persistance.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,12 +11,12 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @Entity
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "person")
-@EqualsAndHashCode(callSuper = true)
 public class Person extends Identifiable implements UserDetails {
 
     @Column(name = "username", columnDefinition = "varchar(255)")

@@ -1,6 +1,7 @@
 package ru.dikanskiy.exam.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,18 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@RequiredArgsConstructor
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
     private final JwtProviderService jwtProviderService;
-
-    @Autowired
-    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
-                                                      JwtProviderService jwtProviderService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtProviderService = jwtProviderService;
-    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
