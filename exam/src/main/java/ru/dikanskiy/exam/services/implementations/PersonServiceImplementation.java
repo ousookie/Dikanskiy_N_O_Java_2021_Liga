@@ -1,6 +1,9 @@
 package ru.dikanskiy.exam.services.implementations;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +21,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,11 +33,12 @@ public class PersonServiceImplementation implements PersonService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public List<PersonDTO> findAll() {
-        return personRepository.findAll().stream().map(PersonMapper::toPersonDTO).collect(Collectors.toList());
+    public List<PersonDTO> findAllPageable(Integer page, Integer personsCount) {
+        Pageable pageable = PageRequest.of(page, personsCount);
+        return personRepository.findAll(pageable).map(PersonMapper::toPersonDTO).getContent();
     }
 
-    public Person getById(UUID id) {
+    public Person getById(final UUID id) {
         if (personRepository.existsById(id)) {
             return personRepository.getById(id);
         } else {
@@ -43,7 +46,7 @@ public class PersonServiceImplementation implements PersonService {
         }
     }
 
-    public Optional<Person> findPersonByUsername(String username) {
+    public Optional<Person> findPersonByUsername(final String username) {
         return personRepository.findPersonByUsername(username);
     }
 
@@ -62,7 +65,7 @@ public class PersonServiceImplementation implements PersonService {
     }
 
     @Transactional
-    public Reservation addReservation(UUID id) {
+    public Reservation addReservation(final UUID id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<Person> person = findPersonByUsername(username);
@@ -77,7 +80,7 @@ public class PersonServiceImplementation implements PersonService {
     }
 
     @Transactional
-    public Person update(UUID id, Person person) {
+    public Person update(final UUID id, Person person) {
         if (personRepository.existsById(id)) {
             Person currentPerson = personRepository.getById(id);
             currentPerson.setUsername(person.getUsername());
@@ -89,7 +92,7 @@ public class PersonServiceImplementation implements PersonService {
     }
 
     @Transactional
-    public void delete(UUID id) {
+    public void delete(final UUID id) {
         if (personRepository.existsById(id)) {
             personRepository.deleteById(id);
         } else {
@@ -97,11 +100,11 @@ public class PersonServiceImplementation implements PersonService {
         }
     }
 
-    public boolean isAuthenticationValid(final String personId) {
+    public boolean isCurrentAuthenticationContainsRequestedPersonById(final UUID id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<Person> person = findPersonByUsername(username);
-        return person.map(value -> value.getId().equals(UUID.fromString(personId))).orElse(false);
+        return person.map(value -> value.getId().equals(id)).orElse(false);
     }
 
 }

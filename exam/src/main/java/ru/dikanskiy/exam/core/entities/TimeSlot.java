@@ -6,11 +6,12 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class TimeSlot {
 
     private LocalTime reservationTime;
 
 }
+

@@ -26,13 +26,13 @@ public class Reservation extends Named {
     private LocalTime reservationTime;
 
     @Column(name = "is_available", columnDefinition = "boolean")
-    private boolean isAvailable;
+    private boolean available;
 
     @Column(name = "is_valid", columnDefinition = "boolean")
-    private boolean isValid;
+    private boolean valid;
 
     @Column(name = "is_registered", columnDefinition = "boolean")
-    private boolean isRegistered;
+    private boolean registered;
 
     @JsonIgnore
     @OneToOne

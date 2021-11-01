@@ -2,9 +2,8 @@ package ru.dikanskiy.exam.services.implementations;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,45 +32,37 @@ public class ReservationServiceImplementation implements ReservationService {
 
     private final Schedule schedule;
 
-    public List<ReservationDTO> findAll() {
-        List<Reservation> reservations = reservationRepository.findAll();
-        return reservations.stream().map(ReservationMapper::toReservationDTO).collect(Collectors.toList());
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
     }
 
-    public Reservation getById(UUID id) {
+    public List<ReservationDTO> findAllPageable(Integer page, Integer reservationCount) {
+        Pageable pageable = PageRequest.of(page, reservationCount);
+        return reservationRepository.findAll(pageable).map(ReservationMapper::toReservationDTO).getContent();
+    }
+
+    public Reservation getById(final UUID id) {
         return reservationRepository.getById(id);
     }
 
-    public List<ReservationDTO> findAllAvailable() {
-        List<Reservation> reservations = reservationRepository
-                .findAll()
-                .stream()
-                .filter(Reservation::isAvailable)
-                .collect(Collectors.toList());
-        return reservations.stream().map(ReservationMapper::toReservationDTO).collect(Collectors.toList());
+    public List<ReservationDTO> findAllAvailablePageable(Integer page, Integer reservationCount) {
+        Pageable pageable = PageRequest.of(page, reservationCount);
+        return reservationRepository.findByAvailableTrue(pageable).map(ReservationMapper::toReservationDTO).getContent();
     }
 
-    public List<ReservationDTO> findByPersonUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        List<Reservation> reservations = reservationRepository.findByPersonUsername(username);
-        return reservations.stream().map(ReservationMapper::toReservationDTO).collect(Collectors.toList());
+    public List<ReservationDTO> findByPersonUsernamePageable(final String username, Integer page, Integer reservationCount) {
+        Pageable pageable = PageRequest.of(page, reservationCount);
+        return reservationRepository.findByPersonUsername(username, pageable)
+                .map(ReservationMapper::toReservationDTO)
+                .getContent();
     }
 
-    public List<ReservationDTO> findByPersonUsername2(String username) {
-        List<Reservation> reservations = reservationRepository.findByPersonUsername(username);
-        return reservations.stream().map(ReservationMapper::toReservationDTO).collect(Collectors.toList());
-    }
-
-    public Optional<ReservationDTO> findReservationOrderByDateASC() {
-        Sort sort = Sort.by(Sort.Direction.ASC, "reservationTime");
-        final List<Reservation> reservationList = reservationRepository.findAll(sort);
-        Optional<ReservationDTO> reservation = reservationList
-                .stream().filter(Reservation::isValid)
-                .findFirst()
-                .map(ReservationMapper::toReservationDTO);
-        if (reservation.isPresent()) {
-            return reservation;
+    public Optional<ReservationDTO> findReservationOrderByDateAsc() {
+        List<Reservation> reservations = reservationRepository.findReservationByValidTrueOrderByReservationTimeAsc();
+        Optional<Reservation> reservationOptional = reservations.stream().findFirst();
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            return Optional.of(ReservationMapper.toReservationDTO(reservation));
         } else {
             throw new ReservationNotFoundException();
         }
@@ -81,12 +72,19 @@ public class ReservationServiceImplementation implements ReservationService {
     public Reservation save(@RequestBody Reservation reservation) {
 
         List<TimeSlot> timeSlotList = schedule.getReservationTestList();
+        List<ReservationDTO> reservations = findAll().stream()
+                .map(ReservationMapper::toReservationDTO)
+                .collect(Collectors.toList());
 
         Optional<TimeSlot> current = timeSlotList.stream()
                 .filter(timeSlot -> timeSlot.getReservationTime()
                         .equals(reservation.getReservationTime())).findAny();
 
-        if (current.isPresent()) {
+        Optional<ReservationDTO> reservationDTOOptional
+                = reservations.stream().filter(reservationDTO -> reservationDTO.getReservationDate()
+                .equals(current.get().getReservationTime())).findAny();
+
+        if (current.isPresent() && reservationDTOOptional.isEmpty()) {
             Reservation currentReservation = new Reservation(
                     new Date(new java.util.Date().getTime()),
                     reservation.getReservationTime(),
@@ -103,7 +101,7 @@ public class ReservationServiceImplementation implements ReservationService {
     }
 
     @Transactional
-    public Reservation confirm(UUID id) {
+    public Reservation confirm(final UUID id) {
         if (reservationRepository.existsById(id)) {
             Reservation currentReservation = reservationRepository.getById(id);
             currentReservation.setValid(true);
@@ -114,7 +112,7 @@ public class ReservationServiceImplementation implements ReservationService {
     }
 
     @Transactional
-    public Reservation register(UUID id) {
+    public Reservation register(final UUID id) {
         if (reservationRepository.existsById(id)) {
             Reservation currentReservation = reservationRepository.getById(id);
             currentReservation.setRegistered(true);
@@ -125,7 +123,7 @@ public class ReservationServiceImplementation implements ReservationService {
     }
 
     @Transactional
-    public Reservation reset(UUID id) {
+    public Reservation reset(final UUID id) {
         if (reservationRepository.existsById(id)) {
             Reservation currentReservation = reservationRepository.getById(id);
             currentReservation.setPerson(null);
@@ -139,7 +137,7 @@ public class ReservationServiceImplementation implements ReservationService {
     }
 
     @Transactional
-    public void delete(UUID id) {
+    public void delete(final UUID id) {
         if (reservationRepository.existsById(id)) {
             reservationRepository.deleteById(id);
         } else {

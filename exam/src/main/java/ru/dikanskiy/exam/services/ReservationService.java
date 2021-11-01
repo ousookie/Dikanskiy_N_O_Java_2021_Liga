@@ -9,24 +9,26 @@ import java.util.UUID;
 
 public interface ReservationService {
 
-    List<ReservationDTO> findAll();
+    List<Reservation> findAll();
 
-    Reservation getById(UUID id);
+    List<ReservationDTO> findAllPageable(Integer page, Integer reservationCount);
 
-    List<ReservationDTO> findAllAvailable();
+    Reservation getById(final UUID id);
 
-    List<ReservationDTO> findByPersonUsername();
+    List<ReservationDTO> findAllAvailablePageable(Integer page, Integer reservationCount);
 
-    Optional<ReservationDTO> findReservationOrderByDateASC();
+    List<ReservationDTO> findByPersonUsernamePageable(final String username, Integer page, Integer reservationCount);
+
+    Optional<ReservationDTO> findReservationOrderByDateAsc();
 
     Reservation save(Reservation reservation);
 
-    Reservation confirm(UUID id);
+    Reservation confirm(final UUID id);
 
-    Reservation register(UUID id);
+    Reservation register(final UUID id);
 
-    Reservation reset(UUID id);
+    Reservation reset(final UUID id);
 
-    void delete(UUID id);
+    void delete(final UUID id);
 
 }
